@@ -1,5 +1,5 @@
 /*!
- * jquery.defer.js 0.1
+ * jquery.defer.js 1.0
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
