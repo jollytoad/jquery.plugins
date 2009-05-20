@@ -1,0 +1,7 @@
+This is a repository of jQuery plugins that we've created at Adaptavist.com.
+They are too small to warrant their own repositories, so they will remain
+here unless they grow.
+
+Plugins:
+
+jquery.defer.js - Defer any callback function, most useful for events.
