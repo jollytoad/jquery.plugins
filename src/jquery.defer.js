@@ -4,7 +4,7 @@
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
  *
- * Author: Mark Gibson (jollytoad at gmail dot com)
+ * http://www.adaptavist.com/display/free/jQuery+Defer
  */
 /* Creates callback proxy that defers the real callback for a given delay, any
  * further innvocation of the proxy during that time will reset the delay.
@@ -28,6 +28,8 @@
  *
  * This isn't even specific to jQuery, and is only placed into the jQuery
  * namespace as a convenience - feel free to place it elsewhere.
+ *
+ * Author: Mark Gibson (jollytoad at gmail dot com)
  */
 jQuery.defer = function(delay, callback) {
 	var timer;
