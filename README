@@ -4,8 +4,18 @@ here unless they grow.
 
 Plugins:
 
+jquery.conflict.js
+
+	For use in a multiple jQuery environment.
+	Ensures that scripts are loaded with the current jQuery in the global scope.
+
+
 jquery.defer.js
 
 	Defer any callback function, most useful for events.
 	See: http://www.adaptavist.com/display/free/jQuery+Defer
 
+
+jquery.overlay.js
+
+	Deep prototypal inheritance, useful for configurations and JSON modifications.
