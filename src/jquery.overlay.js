@@ -14,25 +14,34 @@
  */
 (function($) {
 
-$.overlay = function( original, overlay ) {
-	var ret, k, v;
+$.overlay = function( original, overlay, fn ) {
+	var ret, k, v, r;
 	
 	// Create a new object with the original object as it's prototype
 	// and then copy all the properties from the overlay into it.
 	function F() {};
 	F.prototype = original;
-	ret = $.extend(new F(), overlay);
+	ret = new F();
 	
 	// Create overlays in the new object for all objects that exist in the original
 	for ( k in original ) {
 		v = original[k];
 		if ( v !== null && typeof v === 'object' ) {
 			// A recursive call to this function
-			ret[k] = arguments.callee(v, overlay && overlay[k]);
+			ret[k] = arguments.callee(v, overlay && overlay[k], fn);
+		} else if ( overlay && k in overlay ) {
+			r = fn ? fn(overlay[k], overlay, k) : overlay[k];
+			if ( r !== undefined ) {
+				ret[k] = r;
+			}
 		}
 	}
 	
 	return ret;
+};
+
+$.overlay.ignoreNull = function(v) {
+	return v === null ? undefined : v;
 };
 
 })(jQuery);
