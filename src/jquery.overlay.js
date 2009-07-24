@@ -1,5 +1,5 @@
 /*!
- * jquery.overlay.js 0.1
+ * jquery.overlay.js 0.2
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
@@ -14,35 +14,38 @@
  */
 (function($) {
 
-$.overlay = function( original, overlay, fn ) {
-	var ret, k, v, r;
-	
-	// Create a new object with the original object as it's prototype
-	// and then copy all the properties from the overlay into it.
-	function F() {};
-	F.prototype = original;
-	ret = new F();
+var toString = Object.prototype.toString;
+
+$.extend({
+
+beget: function( o ) {
+	var F = function() {};
+	F.prototype = o;
+	return new F();
+},
+
+overlay: function( original, overlay, allowNulls ) {
+	var target = $.beget(original), name, src, copy;
 	
 	// Create overlays in the new object for all objects that exist in the original
-	for ( k in original ) {
-		v = original[k];
-		if ( v !== null && typeof v === 'object' ) {
-			// A recursive call to this function
-			ret[k] = arguments.callee(v, overlay && overlay[k], fn);
-		} else if ( overlay && k in overlay ) {
-			r = fn ? fn(overlay[k], overlay, k) : overlay[k];
-			if ( r !== undefined ) {
-				ret[k] = r;
-			}
+	for ( name in original ) {
+		src = original[ name ];
+		copy = overlay && overlay[ name ];
+			
+		// Recurse into objects creating overlays for them too
+		if ( toString.call(src) === "[object Object]" ) {
+			target[ name ] = arguments.callee( src, copy, allowNulls );
+		
+		// Copy primitive values and native objects
+		} else if ( copy !== undefined && (allowNulls || copy !== null) ) {		
+			target[ name ] = copy;
 		}
 	}
 	
-	return ret;
-};
+	return target;
+}
 
-$.overlay.ignoreNull = function(v) {
-	return v === null ? undefined : v;
-};
+});
 
 })(jQuery);
 
