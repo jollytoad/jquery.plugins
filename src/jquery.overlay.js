@@ -3,6 +3,8 @@
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
+ *
+ * http://www.adaptavist.com/display/free/jQuery+Overlay
  */
 /* Overlay an object over another using deep prototypal inheritance.
  *

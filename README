@@ -18,4 +18,6 @@ jquery.defer.js
 
 jquery.overlay.js
 
-	Deep prototypal inheritance, useful for configurations and JSON modifications.
+	Overlay objects over one another using deep prototypal inheritance,
+	useful for configuration and JSON objects, and model based apps.
+	See: http://www.adaptavist.com/display/free/jQuery+Overlay
