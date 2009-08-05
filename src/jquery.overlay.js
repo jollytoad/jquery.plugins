@@ -1,5 +1,5 @@
 /*!
- * jquery.overlay.js 0.2
+ * jquery.overlay.js 0.3
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
@@ -11,6 +11,11 @@
  * Possible use cases:
  * - layered configurations
  * - changes to a JSON object
+ *
+ * Options:
+ * - notNulls - Don't copy null values from the overlay
+ * - onlyOwn - Only copy overlays own properties (hasOwnProperty)
+ * - notEqual - Don't copy if overlay value is equal to original value
  *
  * Author: Mark Gibson (jollytoad at gmail dot com)
  */
@@ -26,8 +31,9 @@ beget: function( o ) {
 	return new F();
 },
 
-overlay: function( original, overlay, allowNulls ) {
+overlay: function( original, overlay, options ) {
 	var target = $.beget(original), name, src, copy;
+	options = options || {};
 	
 	// Create overlays in the new object for all objects that exist in the original
 	for ( name in original ) {
@@ -39,7 +45,11 @@ overlay: function( original, overlay, allowNulls ) {
 			target[ name ] = arguments.callee( src, copy, allowNulls );
 		
 		// Copy primitive values and native objects
-		} else if ( copy !== undefined && (allowNulls || copy !== null) ) {		
+		} else if ( copy !== undefined &&
+					!(options.notNulls && copy === null) &&
+					!(options.notEqual && copy === src) &&
+					!(options.onlyOwn && !overlay.hasOwnProperty(name)) ) {
+	
 			target[ name ] = copy;
 		}
 	}
