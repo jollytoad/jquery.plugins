@@ -19,7 +19,6 @@
  *
  * Author: Mark Gibson (jollytoad at gmail dot com)
  */
-jQuery = Versions.use('jquery','latest');
 (function($) {
 
 var toString = Object.prototype.toString;
