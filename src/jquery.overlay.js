@@ -1,5 +1,5 @@
 /*!
- * jquery.overlay.js 0.3
+ * jquery.overlay.js 0.4
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
@@ -13,9 +13,10 @@
  * - changes to a JSON object
  *
  * Options:
- * - notNulls - Don't copy null values from the overlay
- * - onlyOwn - Only copy overlays own properties (hasOwnProperty)
- * - notEqual - Don't copy if overlay value is equal to original value
+ *   notNulls - Don't copy null values from the overlay
+ *   notEqual - Don't copy if overlay value is equal to original value
+ *   onlyOwn  - Only copy overlays own properties (hasOwnProperty)
+ *   onlyOriginal - Only copy properties from the overlay that exist in the original
  *
  * Author: Mark Gibson (jollytoad at gmail dot com)
  */
@@ -51,6 +52,15 @@ overlay: function( original, overlay, options ) {
 					!(options.onlyOwn && !overlay.hasOwnProperty(name)) ) {
 	
 			target[ name ] = copy;
+		}
+	}
+	
+	// Copy properties unique to the overlay
+	if ( overlay && !options.onlyOriginal ) {
+		for ( name in overlay ) {
+			if ( !(name in target) ) {
+				target[ name ] = overlay[ name ];
+			}
 		}
 	}
 	
