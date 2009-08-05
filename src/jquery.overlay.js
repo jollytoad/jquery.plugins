@@ -19,6 +19,7 @@
  *
  * Author: Mark Gibson (jollytoad at gmail dot com)
  */
+jQuery = Versions.use('jquery','latest');
 (function($) {
 
 var toString = Object.prototype.toString;
@@ -42,7 +43,7 @@ overlay: function( original, overlay, options ) {
 			
 		// Recurse into objects creating overlays for them too
 		if ( toString.call(src) === "[object Object]" ) {
-			target[ name ] = arguments.callee( src, copy, allowNulls );
+			target[ name ] = arguments.callee( src, copy, options );
 		
 		// Copy primitive values and native objects
 		} else if ( copy !== undefined &&
