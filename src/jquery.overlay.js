@@ -1,5 +1,5 @@
 /*!
- * jquery.overlay.js 0.4
+ * jquery.overlay.js 0.5
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
@@ -17,6 +17,7 @@
  *   notEqual - Don't copy if overlay value is equal to original value
  *   onlyOwn  - Only copy overlays own properties (hasOwnProperty)
  *   onlyOriginal - Only copy properties from the overlay that exist in the original
+ *   noProto  - Don't add .getPrototype fn to the object
  *
  * Author: Mark Gibson (jollytoad at gmail dot com)
  */
@@ -62,6 +63,14 @@ overlay: function( original, overlay, options ) {
 				target[ name ] = overlay[ name ];
 			}
 		}
+	}
+	
+	// Add a getPrototype() fn to the object
+	if ( !options.noProto ) {
+		target.getPrototype =
+			target.__proto__ ?
+				function() { return this.__proto__; } :
+				function() { return original; };
 	}
 	
 	return target;
