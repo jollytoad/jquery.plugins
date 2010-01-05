@@ -13,11 +13,11 @@ jquery.conflict.js
 jquery.defer.js
 
 	Defer any callback function, most useful for events.
-	See: http://www.adaptavist.com/display/free/jQuery+Defer
+	See: http://www.adaptavist.com/display/jQuery/Defer
 
 
 jquery.overlay.js
 
 	Overlay objects over one another using deep prototypal inheritance,
 	useful for configuration and JSON objects, and model based apps.
-	See: http://www.adaptavist.com/display/free/jQuery+Overlay
+	See: http://www.adaptavist.com/display/jQuery/Overlay

@@ -4,7 +4,7 @@
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
  *
- * http://www.adaptavist.com/display/free/jQuery+Defer
+ * http://www.adaptavist.com/display/jQuery/Defer
  */
 /* Creates callback proxy that defers the real callback for a given delay, any
  * further innvocation of the proxy during that time will reset the delay.
