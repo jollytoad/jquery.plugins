@@ -1,5 +1,5 @@
 /*!
- * jquery.overlay.js 0.5
+ * jquery.overlay.js 0.6
  *
  * Copyright (c) 2009 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
@@ -43,7 +43,7 @@ overlay: function( original, overlay, options ) {
 		copy = overlay && overlay[ name ];
 			
 		// Recurse into objects creating overlays for them too
-		if ( toString.call(src) === "[object Object]" ) {
+		if ( src && toString.call(src) === "[object Object]" ) {
 			target[ name ] = arguments.callee( src, copy, options );
 		
 		// Copy primitive values and native objects
