@@ -1,7 +1,7 @@
 /*!
- * jquery.defer.js 1.0
+ * jquery.defer.js 1.1
  *
- * Copyright (c) 2009 Adaptavist.com Ltd
+ * Copyright (c) 2010 Adaptavist.com Ltd
  * Dual licensed under the MIT and GPL licenses.
  *
  * http://www.adaptavist.com/display/jQuery/Defer
@@ -26,26 +26,48 @@
  * callback function. So whilst it's greatest use is for event handling, it
  * could be used in any callback situation.
  *
- * This isn't even specific to jQuery, and is only placed into the jQuery
- * namespace as a convenience - feel free to place it elsewhere.
+ * Version 1.1 adds an optional 'timerDataName' parameter, which allows you to share
+ * the timer between multiple defers. The timer id is stored in a jQuery data item
+ * (named by timerDataName) of the 'this' object. This is particularly useful for
+ * hover events:
+ *
+ *  $('li')
+ *    .css('opacity', 0.5)
+ *    .hover(
+ *      $.defer( 500, 'hoverTimer', function() { $(this).animate({opacity: 1}); } ),
+ *      $.defer( 100, 'hoverTimer', function() { $(this).animate({opacity: 0.5}); } )
+ *    );
  *
  * Author: Mark Gibson (jollytoad at gmail dot com)
  */
-jQuery.defer = function(delay, callback) {
+/*global jQuery, clearTimeout, setTimeout */
+(function($) {
+
+$.defer = function(delay, timerDataName, callback) {
 	var timer;
-	
+
+	if ( !callback ) {
+	    callback = timerDataName;
+	    timerDataName = undefined;
+	}
+
 	// Return the callback proxy
 	return function() {
 		// Save the vars for the real callback
 		var that = this, args = arguments;
 		
 		// Reset the delay
-		window.clearTimeout(timer);
+		clearTimeout(timerDataName ? $.data(this, timerDataName) : timer);
 
 		// Delay the real callback
-		timer = window.setTimeout(function() {		
+		timer = setTimeout(function() {
 			callback.apply(that, args);
 		}, delay);
+
+		if ( timerDataName ) {
+		    $.data(this, timerDataName, timer);
+		}
 	};
 };
 
+})(jQuery);
